@@ -2,8 +2,21 @@
   "name": "isomorphic-package",
   "version": "1.0.0",
   "description": "🚀 A TypeScript-powered template for building hybrid npm packages that work seamlessly in Node.js and browser environments.",
-  "main": "index.js",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
   "scripts": {
+    "build:esm": "tsc -p tsconfig.esm.json",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build:types": "tsc -p tsconfig.types.json",
+    "build": "npm run clean && npm run build:esm && npm run build:cjs && npm run build:types",
+    "clean": "rimraf dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -13,12 +26,12 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "bugs": {
     "url": "https://github.com/ecalcutin/isomorphic-package/issues"
   },
   "homepage": "https://github.com/ecalcutin/isomorphic-package#readme",
   "devDependencies": {
+    "rimraf": "^6.0.1",
     "typescript": "^5.8.2"
   }
 }
